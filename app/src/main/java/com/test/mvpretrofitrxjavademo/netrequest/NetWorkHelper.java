@@ -16,25 +16,24 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetWorkHelper {
 
-    private Context mContext;
     private Retrofit mRetrofit;
 
     private String BASEURL = "https://api.douban.com/v2/";
 
     private static NetWorkHelper netWorkHelperInstance = null;
-
-    public static NetWorkHelper getInstance(Context context) {
+    //实例用于Model调用
+    public static NetWorkHelper getInstance() {
         if (netWorkHelperInstance == null) {
-            netWorkHelperInstance = new NetWorkHelper(context);
+            netWorkHelperInstance = new NetWorkHelper();
         }
         return netWorkHelperInstance;
     }
-
-    public NetWorkHelper(Context context) {
-        this.mContext = context;
+    //构造器
+    public NetWorkHelper() {
         initRetrofit();
     }
 
+    //Retrofit设置
     private Retrofit initRetrofit() {
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(BASEURL)
@@ -44,8 +43,8 @@ public class NetWorkHelper {
         return mRetrofit;
     }
 
+    //将方法抽离，避免代码冗余
     public NetWorkRequestService getSersver() {
         return mRetrofit.create(NetWorkRequestService.class);
     }
-
 }

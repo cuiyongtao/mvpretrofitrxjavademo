@@ -18,11 +18,11 @@ import rx.Observable;
 
 public class MovieModel {
     NetWorkRequestService netWorkRequestService;
-
-    public MovieModel(Context context) {
-        netWorkRequestService = NetWorkHelper.getInstance(context).getSersver();
+    //获取netWorkRequestService
+    public MovieModel() {
+        netWorkRequestService = NetWorkHelper.getInstance().getSersver();
     }
-
+    //这里写的是固定返回5条数据
     public Observable<MovieInfo> getRequestMovieData() {
         return netWorkRequestService.getMovie(0,5);
     }
